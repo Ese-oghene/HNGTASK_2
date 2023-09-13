@@ -1,5 +1,4 @@
 const express = require('express')
-// const Person = require('./models/person')
 const mongoose = require('mongoose')
 
 const PORT = process.env.PORT || 3000;
