@@ -1,14 +1,15 @@
 const express = require('express')
+
+const app = express();
 const mongoose = require('mongoose')
 
 const PORT = process.env.PORT || 3000;
 
-const app = express()
 
 // paste form data
-app.use(express.urlencoded({extended: false }))
+app.use(express.urlencoded({extended:true }))
 // paste json
-app.use(express.json())
+
 
 // Connect to MongoDB 
 
@@ -16,58 +17,34 @@ mongoose.connect('mongodb+srv://HNG_1:HNG1234@hng.9a3ndke.mongodb.net/HNG?retryW
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then((result) => console.log('Connected to db'))
+  .then(() => console.log('Connected to db'))
   .catch((err) => console.log(err))
 
 
   // Define the Person schema and model
+app.use(express.json());
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  }
+});
 
-  const personSchema = new mongoose.Schema({
-    name: String,
-    user_id: Number,
-    email: {
-      type: String,
-      required: true,
-      unique: true, // Ensures that each email is unique in the collection
-      trim: true, // Removes leading/trailing white spaces from the email
-      lowercase: true, // Converts the email to lowercase before saving
-      match: /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/, // Regular expression for a valid email format
-    },
-  });
-  
-   const Person = mongoose.model('Person', personSchema);
+const User = mongoose.model("User", userSchema);
 //add-new person
 
 
 
-
-// Create a new person
-// Create a new person
-app.post('/api', async (req, res) => {
-    try {
-      const person = new Person(req.body);
-      const savedPerson = await person.save();
-      res.status(201).json(savedPerson);
-    } catch (error) {
-      res.status(500).json({ message: 'Error creating person' });
-    }
-  });
-  
-  // Retrieve all persons
-  app.get('/api', async (req, res) => {
-    try {
-      const persons = await Person.find();
-      res.json(persons);
-    } catch (error) {
-      res.status(500).json({ message: 'Error retrieving persons' });
-    }
-  });
+app.post("/api", async (req, res) => {
+  const user = await User.create({ ...req.body })
+  res.status(201).json({name:user.name,id:user._id})
+})
   
   // Retrieve a person by name
-  app.get('/api/:name', async (req, res) => {
-    const { name } = req.params;
+  app.get('/api/:id', async (req, res) => {
+    const { id } = req.params;
     try {
-      const person = await Person.findOne({ name });
+      const person = await User.findOne({_id:id});
       if (!person) {
         return res.status(404).json({ message: 'Person not found' });
       }
@@ -78,16 +55,16 @@ app.post('/api', async (req, res) => {
   });
   
   // Update a person by name
-  app.put('/api/:name', async (req, res) => {
-    const { name } = req.params;
+app.put('/api/:id', async (req, res) => {
+  const {params:{id},body:{ name }} = req;
     try {
-      const updatedPerson = await Person.findOneAndUpdate(
-        { name },
+      const updatedPerson = await User.findOneAndUpdate(
+        { _id:id },
         req.body,
-        { new: true }
+        { new: true ,runValidators:true}
       );
       if (!updatedPerson) {
-        return res.status(404).json({ message: 'Person not found' });
+        return res.status(404).json({name:updatedPerson.name,id:updatedPerson._id});
       }
       res.json(updatedPerson);
     } catch (error) {
@@ -96,10 +73,10 @@ app.post('/api', async (req, res) => {
   });
   
   // Delete a person by name
-  app.delete('/api/:name', async (req, res) => {
-    const { name } = req.params;
+  app.delete('/api/:id', async (req, res) => {
+    const { id } = req.params;
     try {
-      const deletedPerson = await Person.findOneAndDelete({ name });
+      const deletedPerson = await User.findOneAndDelete({_id:id });
       if (!deletedPerson) {
         return res.status(404).json({ message: 'Person not found' });
       }
