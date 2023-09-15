@@ -22,8 +22,14 @@ This is a simple CRUD (Create, Read, Update, Delete) API built with Node.js and 
 Before you begin, ensure you have met the following requirements:
 
 - Node.js installed (version >= 14.20.1)
-- MySQL database server installed and running
-- MySQL database credentials (host, username, password, and database name)
+- Mongodb database server installed and running
+- Mongodb database credentials (id, name)
+-  userSchema = new mongoose.Schema({
+    name: {
+      type: String,
+      required: true,
+    }
+  })
 
 ## Getting Started
 
