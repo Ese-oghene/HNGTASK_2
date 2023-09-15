@@ -12,7 +12,6 @@ app.use(express.urlencoded({extended:true }))
 
 
 // Connect to MongoDB 
-
 mongoose.connect('mongodb+srv://HNG_1:HNG1234@hng.9a3ndke.mongodb.net/HNG?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,

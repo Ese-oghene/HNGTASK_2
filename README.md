@@ -38,15 +38,14 @@ Before you begin, ensure you have met the following requirements:
 2. Install dependencies 
     npm install
 3. Database Setup
-    Create a MySQL database for your project.
+    // Connect to MongoDB 
+    mongoose.connect('mongodb+srv://HNG_1:HNG1234@hng.9a3ndke.mongodb.net/HNG?retryWrites=true&w=majority', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log('Connected to db'))
+  .catch((err) => console.log(err))
 
-            Update the MySQL connection settings in app.js:
-            const db = mysql.createConnection({
-        host: 'your-hostname',
-        user: 'your-username',
-        password: 'your-password',
-        database: 'your-database',
-        });
 4. Start the Node.js server:
     node app.js
 
