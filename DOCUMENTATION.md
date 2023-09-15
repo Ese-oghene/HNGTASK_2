@@ -2,20 +2,25 @@ Standard Format for Request and Respond
 
  API Endpoints
     Create User
-    URL: /api/person
+    URL: /api/
     Method: POST
+    https://bernard-b1fq.onrender.com/api/
     Request Body: JSON object with name and email fields.
-    Response: JSON object with a success message and the created user's name.
+    {
+    "name":"Dad"
+    }
+    Response: JSON object with the created user's name and email.
+    {
+    "name": "Dad",
+    "id": "6504c9e347c5a35030bc0b3f"
+     }
+  
+    
 
     Retrieve User
     URL: /api/:id
     Method: GET
     Response: JSON object with user details based on the provided name.
-
-    Retrieve All Users
-    URL: /api/
-    Method: GET
-    Response: JSON array containing all user records.
 
     Update User
     URL: /api/:id
