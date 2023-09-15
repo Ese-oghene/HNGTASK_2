@@ -20,32 +20,37 @@ Standard Format for Request and Respond
     Retrieve User
     URL: /api/:id
     Method: GET
-    Response: JSON object with user details based on the provided name.
+   https://bernard-b1fq.onrender.com/api/6504c9e347c5a35030bc0b3f
+    Response: JSON object with user details based on the provided id.
+      {
+      "_id": "6504c9e347c5a35030bc0b3f",
+      "name": "Dad",
+      "__v": 0
+     }
+    
 
     Update User
     URL: /api/:id
     Method: PUT
-    Request Body: JSON object with updated email field.
+    https://bernard-b1fq.onrender.com/api/6504c9e347c5a35030bc0b3f
+   
+    Request Body: JSON object with updated id field.
+     {
+    "name":"Dada"
+     }
     Response: JSON object with a success message and the updated user's name.
+     {
+      "_id": "6504c9e347c5a35030bc0b3f",
+      "name": "Dada",
+      "__v": 0
+     }
+    
 
     Delete User
     URL: /api/:id
     Method: DELETE
+    https://bernard-b1fq.onrender.com/api/6504c9e347c5a35030bc0b3f
     Response: No content (204) on successful deletion.
-
-
-Sample useage
-get all person
-https://hng2a.onrender.com/api
-{"id":1,"name":"bernard","email":"bernard@gmail.com"},{"id":2,"name":"Ese","email":"ese@gmail.com"},{"id":3,"name":"Ejiro","email":"ejiro@gmail.com"}
-
-get person by name
-https://hng2a.onrender.com/api/Ese
-
-{
-    "id": 2,
-    "name": "Ese",
-    "email": "ese@gmail.com"
-}
+    User deleted
 
 
