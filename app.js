@@ -34,7 +34,6 @@ const User = mongoose.model("User", userSchema);
 //add-new person
 
 
-
 app.post("/api", async (req, res) => {
   const user = await User.create({ ...req.body })
   res.status(201).json({name:user.name,id:user._id})
@@ -48,7 +47,7 @@ app.post("/api", async (req, res) => {
       if (!person) {
         return res.status(404).json({ message: 'Person not found' });
       }
-      res.json(person);
+      res.status(200).json(person);
     } catch (error) {
       res.status(500).json({ message: 'Error retrieving person' });
     }
@@ -66,7 +65,7 @@ app.put('/api/:id', async (req, res) => {
       if (!updatedPerson) {
         return res.status(404).json({name:updatedPerson.name,id:updatedPerson._id});
       }
-      res.json(updatedPerson);
+      res.status(200).json(updatedPerson);
     } catch (error) {
       res.status(500).json({ message: 'Error updating person' });
     }
@@ -80,7 +79,7 @@ app.put('/api/:id', async (req, res) => {
       if (!deletedPerson) {
         return res.status(404).json({ message: 'Person not found' });
       }
-      res.status(204).send();
+      res.status(200).send('user deleted');
     } catch (error) {
       res.status(500).json({ message: 'Error deleting person' });
     }
