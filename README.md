@@ -1,4 +1,4 @@
-# Node.js and MySQL CRUD API
+# Node.js and MONGODB CRUD API
 
 This is a simple CRUD (Create, Read, Update, Delete) API built with Node.js and MySQL for managing user records.
 
